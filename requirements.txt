@@ -1,0 +1,5 @@
+ipython[all]
+nose
+matplotlib
+requests
+requests-mock
