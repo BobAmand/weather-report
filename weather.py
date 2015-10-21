@@ -1,16 +1,16 @@
-import urllib2
+# import urllib2
 import requests
 # import requests_mock
 import os
-import json
+# import json
 
 weather_key = os.environ['WKEY']
 
 current_location = input("Please enter your zip-code: ")
 print("You entered: {}". format(current_location))
 
-print("Weather key: {}".format(weather_key))    # used to verify key
-print("Current zip: {}".format(current_location))  # used to verify zip
+# print("Weather key: {}".format(weather_key))    # used to verify key
+# print("Current zip: {}".format(current_location))   # used to verify zip
 
 
 '''Verified that key and zipcode properly passed into url'''
@@ -19,12 +19,12 @@ print("Current zip: {}".format(current_location))  # used to verify zip
 
 
 def current_conditions(weather_key, current_location):
-    f = urllib2.urlopen('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
-                       format(weather_key, current_location))  # noqa
-    json_string = f.read()
-    res = json.loads(json_string)
-    # r = requests.get('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
+    # f = urllib2.urlopen('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
     #                    format(weather_key, current_location))  # noqa
+    # json_string = f.read()
+    # res = json.loads(json_string)
+    res = requests.get('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
+                       format(weather_key, current_location)).json()  # noqa
     loc = res['current_observation']['display_location']['city']
     wea = res['current_observation']['weather']
     ts = res['current_observation']['temperature_string']
@@ -34,13 +34,13 @@ def current_conditions(weather_key, current_location):
     windg = res['current_observation']['wind_gust_mph']
     dews = res['current_observation']['dewpoint_string']
 
-    print("Here is the local weather conditions for {}:".format(loc))
+    print("\nHere is the local weather conditions for {}:".format(loc))
     print("In general the weather is {}.".format(wea))
     print("The temperature is {} with {} relative humidity and {} dewpoint.".
           format(ts, rh, dews))
     print("Winds are {} mph {} with gusts of {} mph.".
           format(winds, windd, windg))
-    f.close()
+
 
 current_conditions(weather_key, current_location)
 
