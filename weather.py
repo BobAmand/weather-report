@@ -18,10 +18,7 @@ print("You entered: {}". format(current_location))
 
 
 def current_conditions(weather_key, current_location):
-    # f = urllib2.urlopen('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
-    #                    format(weather_key, current_location))  # noqa
-    # json_string = f.read()
-    # res = json.loads(json_string)
+
     res = requests.get('http://api.wunderground.com/api/{}/conditions/q/{}.json'.   # noqa
                        format(weather_key, current_location)).json()  # noqa
     loc = res['current_observation']['display_location']['city']
@@ -89,33 +86,14 @@ def ten_day_forcast(weather_key, current_location):
     print("Day10 forecast: {}".format(P20))
 
 
+def sunrise_sunset(weather_key, current_location):
+
+    ten = requests.get('http://api.wunderground.com/api/{}/forecast10day/q/{}.json'.   # noqa
+                       format(weather_key, current_location)).json()  # noq
+
+
 def full_set(w, c):
     current_conditions(weather_key, current_location)
     ten_day_forcast(weather_key, current_location)
 
 full_set(weather_key, current_location)
-
-
-# class SearchAlbums:
-#     def __init__(self, q_string):
-#         self.q_string = q_string
-#
-#     def run(self):
-#         url = 'https://________q={}'.format(urllib.quote_plus(self.q_string))
-#
-# def main():
-#     call = SearchAlbums('thriller')
-#     res = call.run()
-# header={'ddd': weather_key})
-
-# print(res.json())
-
-# import urllib2
-# import json
-# f = urllib2.urlopen('http://api.wunderground.com/api/key/geolookup/conditions/zip.json') # noqa
-# json_string = f.read()
-# parsed_json = json.loads(json_string)
-# location = parsed_json['location']['city']
-# temp_f = parsed_json['current_observation']['temp_f']
-# print "Current temperature in {} is: {}" % (location, temp_f)
-# f.close()
